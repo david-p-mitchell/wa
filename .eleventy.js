@@ -3,23 +3,22 @@ function toArrayOrNull(val) {
   if (Array.isArray(val)) return val.filter(Boolean);
   return [val];
 }
-
+require("dotenv").config();
 module.exports = function (eleventyConfig) {
+  
   eleventyConfig.addGlobalData("hymns", () => {
-    const hymns = require("./src/_data/hymns.json");
+    const hymns = require("./src/_data/wa-hymns.json");
 
     return hymns.map(h => ({
-      ...h,
-      lyricists:       toArrayOrNull(h.lyricists),
-      musicians:       toArrayOrNull(h.musicians),
-      keys:            toArrayOrNull(h.keys),
-      topic_tags:      toArrayOrNull(h.topic_tags),
-      scripture_tags:  toArrayOrNull(h.scripture_tags)
+      ...h
     }));
   });
+  eleventyConfig.addGlobalData("auth", process.env.AUTH);
+
+  eleventyConfig.addGlobalData("waHymns", require("./src/_data/wa-hymns.json"));
 
   eleventyConfig.addGlobalData("hymnHeaders", () => {
-    const hymns = require("./src/_data/hymns.json");
+    const hymns = require("./src/_data/wa-hymns.json");
     return hymns.length > 0 ? Object.keys(hymns[0]) : [];
   });
 
