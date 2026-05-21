@@ -12,12 +12,6 @@
     "url": "/hymn/10000-reasons-bless-the-lord/"
   },
   {
-    "hymn_number": 438,
-    "title": "A Charge to Keep I Have",
-    "year": 1762,
-    "url": "/hymn/a-charge-to-keep-i-have/"
-  },
-  {
     "hymn_number": 159,
     "title": "A Debtor to Mercy Alone",
     "year": 1771,
@@ -453,7 +447,8 @@
     "hymn_number": 540,
     "title": "Lord, from Sorrows Deep I Call",
     "year": 2018,
-    "url": "/hymn/lord-from-sorrows-deep-i-call/"
+    "url": "/hymn/lord-from-sorrows-deep-i-call/",
+    "known": false
   },
   {
     "hymn_number": 231,
