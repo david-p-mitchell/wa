@@ -22,6 +22,8 @@ module.exports = function (eleventyConfig) {
     return hymns.length > 0 ? Object.keys(hymns[0]) : [];
   });
 
+  eleventyConfig.addPassthroughCopy("robots.txt");
+
   eleventyConfig.addFilter("toTags", function(val) {
     if (!val) return [];
     if (Array.isArray(val)) return val.filter(Boolean);
