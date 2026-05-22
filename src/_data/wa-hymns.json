@@ -12,12 +12,6 @@
     "url": "/hymn/10000-reasons-bless-the-lord/"
   },
   {
-    "hymn_number": 159,
-    "title": "A Debtor to Mercy Alone",
-    "year": 1771,
-    "url": "/hymn/a-debtor-to-mercy-alone/"
-  },
-  {
     "hymn_number": 465,
     "title": "A Mighty Fortress Is Our God",
     "year": 1529,
@@ -118,12 +112,6 @@
     "title": "Almost Home",
     "year": 2021,
     "url": "/hymn/almost-home/"
-  },
-  {
-    "hymn_number": 126,
-    "title": "Arise, My Soul, Arise",
-    "year": 1742,
-    "url": "/hymn/arise-my-soul-arise/"
   },
   {
     "hymn_number": 538,
@@ -292,6 +280,12 @@
     "title": "He Will Hold Me Fast",
     "year": 1906,
     "url": "/hymn/he-will-hold-me-fast/"
+  },
+  {
+    "hymn_number": 166,
+    "title": "He's done so much for me, I cannot tell it all",
+    "year": 1950,
+    "url": "/hymn/hes-done-so-much-for-me/"
   },
   {
     "hymn_number": 123,
