@@ -1,405 +1,57 @@
 ---
-title: Hymns
+title: Thank You
 layout: base.njk
 ---
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Lora:wght@600&family=DM+Sans:wght@400;500&display=swap');
 
   :root {
     --parchment: #faf7f2;
     --ink: #1c1814;
     --ink-muted: #6b6258;
-    --ink-faint: #b8b0a6;
-    --rule: #e2d9cf;
     --accent: #8b3a1e;
-    --accent-light: #f5ede8;
-    --hover-bg: #f5f0ea;
   }
 
-  html, body {
+  html,
+  body {
+    margin: 0;
+    min-height: 100vh;
     background: var(--parchment);
     color: var(--ink);
     font-family: 'DM Sans', sans-serif;
-    width: 100%;
-    margin: 0;
   }
 
-  .hymns-page {
-    margin: 0 auto;
-    padding: 2rem 1.25rem 5rem;
-  }
-
-  /* ── Header ── */
-  .hymns-header {
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 1.25rem;
-  }
-
-  .hymns-header-top {
+  .thank-you {
+    min-height: 100vh;
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .thank-you h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
     margin-bottom: 1rem;
-  }
-
-  .hymns-header h1 {
-    font-family: 'Lora', serif;
-    font-size: 2rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    line-height: 1;
-    margin: 0;
-  }
-
-  .hymns-header h1 span {
-    font-style: italic;
     color: var(--accent);
   }
 
-  /* ── Toolbar ── */
-  .toolbar {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-
-  .search-wrap {
-    position: relative;
-    flex: 1;
-    min-width: 180px;
-  }
-
-  .search-wrap svg {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--ink-faint);
-    pointer-events: none;
-  }
-
-  #search {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.875rem;
-    background: #fff;
-    border: 1px solid var(--rule);
-    border-radius: 6px;
-    padding: 0.5rem 1rem 0.5rem 2.1rem;
-    width: 100%;
-    max-width: 80%;
-    min-width: 50%;
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
-
-  #search::placeholder { color: var(--ink-faint); }
-
-  #search:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(139,58,30,0.08);
-  }
-
-  /* ── Era filter ── */
-  .era-filter {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    padding: 0.75rem 0 0;
-  }
-
-  .era-label {
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ink-faint);
-    margin-right: 0.25rem;
-    flex-shrink: 0;
-  }
-
-  .era-btn {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
-    padding: 0.3rem 0.75rem;
-    border-radius: 99px;
-    border: 1px solid var(--rule);
-    background: #fff;
+  .thank-you p {
+    font-size: 1.2rem;
     color: var(--ink-muted);
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
-    white-space: nowrap;
+    max-width: 40rem;
+    margin: 0 auto;
   }
-
-  .era-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  .era-btn.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-    font-weight: 500;
-  }
-
-  /* ── Sort bar ── */
-  .sort-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    padding: 0.75rem 0 0;
-  }
-
-  .sort-btn {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
-    padding: 0.3rem 0.75rem;
-    border-radius: 99px;
-    border: 1px solid var(--rule);
-    background: #fff;
-    color: var(--ink-muted);
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
-    white-space: nowrap;
-  }
-
-  .sort-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  .sort-btn.active {
-    background: var(--accent-light);
-    border-color: var(--accent);
-    color: var(--accent);
-    font-weight: 500;
-  }
-
-  .row-count {
-    font-size: 0.78rem;
-    color: var(--ink-faint);
-    margin-top: 0.75rem;
-  }
-
-  /* ── Cards ── */
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem;
-  }
-
-  .card {
-    background: #fff;
-    border: 1px solid var(--rule);
-    border-radius: 10px;
-    padding: 0.4rem 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    transition: box-shadow 0.15s, border-color 0.15s;
-  }
-
-  .card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 2px 12px rgba(139,58,30,0.08);
-  }
-
-  .card-title {
-    font-family: 'Lora', serif;
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.3;
-    margin: 0;
-  }
-
-  .card-meta {
-    font-size: 0.75rem;
-    color: var(--ink-muted);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .card a, td a {
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.15s, color 0.15s;
-  }
-
-  .card a:hover, td a:hover {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-
-  [data-hidden="true"] { display: none !important; }
 </style>
 
-{% include "components/disclaimer.njk" %}
-
-<div class="hymns-page">
-  <div class="hymns-header">
-    <div class="hymns-header-top">
-      <h1>The <span>Sing Hymnal</span></h1>
-    </div>
-
-    <div class="toolbar">
-      <div class="search-wrap">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-        </svg>
-        <input type="text" id="search" placeholder="Search hymns…" />
-      </div>
-    </div>
-
-    <div class="era-filter">
-      <span class="era-label">Era</span>
-      <button class="era-btn active" data-min="0" data-max="9999">All</button>
-      <button class="era-btn" data-min="0" data-max="999">Pre-1000</button>
-      <button class="era-btn" data-min="1000" data-max="1499">1000–1499</button>
-      <button class="era-btn" data-min="1500" data-max="1699">1500–1699</button>
-      <button class="era-btn" data-min="1700" data-max="1799">1700s</button>
-      <button class="era-btn" data-min="1800" data-max="1899">1800s</button>
-      <button class="era-btn" data-min="1900" data-max="1999">1900s</button>
-      <button class="era-btn" data-min="1950" data-max="1960">1950s</button>
-      <button class="era-btn" data-min="1960" data-max="1970">1960s</button>
-      <button class="era-btn" data-min="1970" data-max="1980">1970s</button>
-      <button class="era-btn" data-min="1980" data-max="1990">1980s</button>
-      <button class="era-btn" data-min="1990" data-max="2000">1990s</button>
-      <button class="era-btn" data-min="2000" data-max="2010">2000s</button>
-      <button class="era-btn" data-min="2010" data-max="2020">2010s</button>
-      <button class="era-btn" data-min="2020" data-max="2024">2020–24</button>
-      <button class="era-btn" data-min="2024" data-max="9999">2024–26</button>
-    </div>
-
-    <div class="sort-bar">
-      <span class="era-label">Sort</span>
-      <button class="sort-btn active" data-sort="number">Number</button>
-      <button class="sort-btn" data-sort="title">A–Z</button>
-      <button class="sort-btn" data-sort="year">Year</button>
-    </div>
-
-    <p class="row-count" id="rowCount"></p>
-  </div>
-
-  <div class="cards-grid" id="cards-view">
-    {% for h in waHymns %}
-      <div
-        class="card"
-        data-year="{{ h.year }}"
-        data-title="{{ h.title | lower }}"
-        data-number="{{ h.hymn_number }}"
-        data-search="{{ [h.title, h.hymn_number, h.year] | join(' ') | lower }}"
-      >
-        <p class="card-title">
-          <a href="{{ 'https://singhymnal.com' + h.url }}">
-            {%- if h.hymn_number -%}<span>#{{ h.hymn_number }} </span>{%- endif -%}
-            {{ h.title }}
-          </a>
-        </p>
-        {% if h.year %}<div class="card-meta">{{ h.year }}</div>{% endif %}
-      </div>
-    {% endfor %}
+<div class="thank-you">
+  <div>
+    <h1>Thank You</h1>
+    <p>
+      Thanks for coming this week. We hope you've enjoyed it.
+      We look forward to seeing you again soon.
+    </p>
   </div>
 </div>
-
-<script>
-   (function () {
-    const VALID_KEY = "{{ auth }}";
-    const key = new URLSearchParams(window.location.search).get("auth");
-    console.log(key)
-
-    // optional: remember access once entered
-    const saved = localStorage.getItem("auth");
-
-    const finalKey = key || saved;
-    
-    if (finalKey === VALID_KEY) {
-      localStorage.setItem("auth", finalKey);
-      return; // allow page to continue
-    }
-
-    window.location.href = "/unauthorised/";
-  })();
-
-  const grid     = document.getElementById('cards-view');
-  const rowCount = document.getElementById('rowCount');
-  const searchEl = document.getElementById('search');
-
-  let activeEraMin = 0;
-  let activeEraMax = 9999;
-  let sortDir = {};
-  let activeSort = 'number';
-
-  /* ── Search ── */
-  searchEl.addEventListener('input', applyFilters);
-
-  /* ── Era buttons ── */
-  document.querySelectorAll('.era-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      activeEraMin = parseInt(btn.dataset.min);
-      activeEraMax = parseInt(btn.dataset.max);
-      document.querySelectorAll('.era-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      applyFilters();
-    });
-  });
-
-  /* ── Sort buttons ── */
-  document.querySelectorAll('.sort-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const field = btn.dataset.sort;
-      if (activeSort === field) {
-        sortDir[field] = !sortDir[field];
-      } else {
-        sortDir[field] = true;
-        activeSort = field;
-      }
-      document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      sortCards(field);
-    });
-  });
-
-  /* ── Core functions ── */
-  function applyFilters() {
-    const q = searchEl.value.toLowerCase().trim();
-    getCards().forEach(card => {
-      const year     = parseInt(card.dataset.year) || 0;
-      const inEra    = year >= activeEraMin && year <= activeEraMax;
-      const inSearch = !q || card.dataset.search.includes(q);
-      card.dataset.hidden = (!inEra || !inSearch) ? 'true' : 'false';
-    });
-    updateCount();
-  }
-
-  function sortCards(field) {
-    const cards   = [...getCards()];
-    const numeric = field === 'year' || field === 'number';
-    cards.sort((a, b) => {
-      const av = numeric ? Number(a.dataset[field]) : (a.dataset[field] || '');
-      const bv = numeric ? Number(b.dataset[field]) : (b.dataset[field] || '');
-      return sortDir[field]
-        ? (numeric ? av - bv : av.localeCompare(bv))
-        : (numeric ? bv - av : bv.localeCompare(av));
-    });
-    cards.forEach(card => grid.appendChild(card));
-  }
-
-  function updateCount() {
-    const all     = getCards();
-    const visible = all.filter(c => c.dataset.hidden !== 'true').length;
-    rowCount.textContent = visible === all.length
-      ? `${all.length} hymns`
-      : `${visible} of ${all.length} hymns`;
-  }
-
-  function getCards() {
-    return [...grid.querySelectorAll('.card')];
-  }
-
-  /* ── Init: sort by number on load ── */
-  sortDir['number'] = true;
-  sortCards('number');
-  updateCount();
-</script>
